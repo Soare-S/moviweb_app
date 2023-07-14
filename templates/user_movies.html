@@ -1,0 +1,11 @@
+<!-- user_movies.html -->
+<h1>User Movies - User {{ user_id }}</h1>
+<ul>
+    {% for movie in movies %}
+        <li>
+            {{ movie.title }}
+            <a href="/users/{{ user_id }}/edit/{{ movie.id }}">Edit</a>
+            <a href="/users/{{ user_id }}/delete/{{ movie.id }}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
