@@ -1,0 +1,232 @@
+/* Apply custom styling for the buttons */
+
+/* Custom button styling for "Add movie" button */
+.add-movie-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Custom button styling for "Back to Users page" button */
+.back-to-users-button,
+.back-to-movies-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Form link style */
+.sign-up-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: green;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    background-color: plum;
+}
+
+/* Custom button styling for "Back to Home page" button */
+.home-page-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: gold; /* Red color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Add some margin between the buttons */
+.button + .button {
+    margin-left: 10px;
+}
+
+.delete-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #DC3545; /* Red color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.update-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green color */
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* style.css */
+.movie-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    line-height: 1.5;
+}
+
+/* Movie header style */
+.user-header {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* style.css */
+/* Form container style */
+.form-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Form input style */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Form submit button style */
+.form-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Page container style */
+.page-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* User list style */
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* User list item style */
+.user-item {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+
+/* Add new user button style */
+.add-user-button {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* User name style */
+.user-name {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Page title style */
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: #f9f9f1;
+}
+
+/* Tooltip container style */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Tooltip text style */
+.tooltip-text {
+    visibility: hidden;
+    width: 100%;
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

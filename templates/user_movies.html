@@ -1,11 +1,37 @@
-<!-- user_movies.html -->
-<h1>User Movies - User {{ user_id }}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+ <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<h1 class="user-header">User {{ user_id }} Movies</h1>
 <ul>
     {% for movie in movies %}
         <li>
-            {{ movie.title }}
-            <a href="/users/{{ user_id }}/edit/{{ movie.id }}">Edit</a>
-            <a href="/users/{{ user_id }}/delete/{{ movie.id }}">Delete</a>
+            <h3 class="movie-title"><a href="{{ movie.link }}">{{ movie.title }}</a></h3>
+            <div class="tooltip">
+            <a href="{{ movie.link }}"></a>  <!-- Add the link attribute for the image -->
+            <img src="{{ movie.poster }}" title="poster">
+                  <div class="tooltip-text">  <!-- Show year and director as tooltip text -->
+                    Year: {{ movie.year }}<br>
+                    Director: {{ movie.director }}<br>
+                    Rating: {{ movie.rating }}
+                </div>
+            </div>
+            <p>
+                <a href="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}" class="update-button">Edit
+                </a>
+                <a href="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}" class="delete-button">Delete
+                </a>
+            </p>
         </li>
     {% endfor %}
 </ul>
+</body>
+<a href="{{ url_for('add_new_movie', user_id=user_id) }}" class="add-movie-button">Add movie</a>
+<a href="{{ url_for('list_users') }}" class="back-to-users-button">Back to Users page</a>
+<a href="{{ url_for('home') }}" class="home-page-button">Home page</a>
+<br>
+<br>
+</html>

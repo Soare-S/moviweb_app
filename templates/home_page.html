@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Home Page</title>
+</head>
+<body>
+<!-- Page container with the 'page-container' class -->
+<div class="page-container">
+    <!-- Page title with the 'page-title' class -->
+    <h1 class="page-title">Welcome to MovieWeb App</h1>
+    <!-- Apply the 'back-to-users-button' class to the link -->
+    <a href="/users" class="back-to-users-button">View Users</a>
+    <!-- Login link -->
+    <h2 class="user-header">Or</h2>
+    <div class="form-container">
+        <form action="/login" method="POST">
+            <label for="username"></label>
+            <!-- Apply the 'form-input' class to the input field -->
+            <input type="text" name="username" id="username" class="form-input" placeholder="Username">
+            <br>
+            <label for="password"></label>
+            <!-- Apply the 'form-input' class to the input field -->
+            <input type="password" name="password" id="password" class="form-input" placeholder="Password">
+            <br>
+            <!-- Apply the 'form-submit' class to the submit button -->
+            <input type="submit" value="Login" class="form-submit">
+        </form>
+    </div>
+    <!-- Users Page Link -->
+    <h2 class="user-header">Or</h2>
+    <!-- Apply the 'sign-up-button' class to the link -->
+    <a href="/register" class="sign-up-button">Sign Up</a>
+</div>
+</body>
+</html>

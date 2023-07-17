@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Add User</title>
+</head>
+<body>
+<!-- Form container with the 'form-container' class -->
+<div class="form-container">
+    <h1 class="user-header">Add User</h1>
+    <form action="{{ url_for('add_new_user') }}" method="POST">
+        <label for="name"></label>
+        <!-- Apply the 'form-input' class to the input field -->
+        <input type="text" name="name" id="name" class="form-input" placeholder="Name">
+        <br><br>
+        <!-- Apply the 'form-submit' class to the submit button -->
+        <input type="submit" value="Add User" class="form-submit">
+    </form>
+    <!-- Apply the 'form-link' class to the 'Go back' link -->
+    <a href="{{ url_for('list_users') }}" class="back-to-users-button">Go back</a>
+    <a href="{{ url_for('home') }}" class="home-page-button">Go Home</a>
+</div>
+</body>
+</html>

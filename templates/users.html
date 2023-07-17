@@ -1,16 +1,26 @@
-<!-- users.html -->
-
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Users - MovieWeb App</title>
 </head>
 <body>
+<!-- Page container with the 'page-container' class -->
+<div class="page-container">
     <h1>Users</h1>
-    <ul>
+    <!-- User list with the 'user-list' class -->
+    <ul class="user-list">
         {% for user in users %}
-            <li><a href="/users/{{ user.id }}">{{ user.name }}</a></li>
+            <!-- User list item with the 'user-item' class -->
+            <li class="user-item"><a href="/users/{{ user.id }}" class="user-name">{{ user.name }}</a></li>
         {% endfor %}
     </ul>
+    <br>
+    <!-- Apply the 'add-user-button' class to the 'Add new user' button -->
+    <a href="{{ url_for('add_new_user') }}" class="add-user-button">Add new user</a>
+    <!-- Apply the 'go-home-button' class to the 'Go home' button -->
+    <a href="{{ url_for('home') }}" class="home-page-button">Go home</a>
+</div>
 </body>
 </html>
