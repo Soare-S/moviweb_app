@@ -3,18 +3,34 @@
 <head>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='pagination.js') }}"></script>
     <title>Home Page</title>
 </head>
 <body>
+<header>
+    <h1 class="top-title">Movie Web APP</h1>
+</header>
+{% if current_user %}
+    {% if user_info.photo %}
+        <img src="{{ url_for('static', filename='upload_folder/' + user_info.photo) }}" alt="User Photo" class="user-photo">
+    {% endif %}
+    <a href="{{ url_for('logout') }}" class="logout-button">Log Out</a>
+    <a href="{{ url_for('list_user_movie', user_id=user_id) }}" class="back-to-movies-button">My movies</a>
+{% endif %}
 <!-- Page container with the 'page-container' class -->
 <div class="page-container">
     <!-- Page title with the 'page-title' class -->
     <h1 class="page-title">Welcome to MovieWeb App</h1>
     <!-- Apply the 'back-to-users-button' class to the link -->
-    <a href="/users" class="back-to-users-button">View Users</a>
+    <a href="/users" class="view-users-button">Check Free Users</a>
+    <!-- Users Page Link -->
+    <h3 class="or-header">Or</h3>
+    <!-- Apply the 'sign-up-button' class to the link -->
+    <a href="/register" class="sign-up-button">Create Password Protected Account</a>
     <!-- Login link -->
-    <h2 class="user-header">Or</h2>
+    <h3 class="or-header">Or</h3>
     <div class="form-container">
+        <p class="error_message">{{ message }}</p>
         <form action="/login" method="POST">
             <label for="username"></label>
             <!-- Apply the 'form-input' class to the input field -->
@@ -28,10 +44,38 @@
             <input type="submit" value="Login" class="form-submit">
         </form>
     </div>
-    <!-- Users Page Link -->
-    <h2 class="user-header">Or</h2>
-    <!-- Apply the 'sign-up-button' class to the link -->
-    <a href="/register" class="sign-up-button">Sign Up</a>
 </div>
+ <!-- Display all unique movies -->
+    <h2 class="trending-movies">Trending Movies</h2>
+<div class="movie-grid">
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <div class="movie-item">
+                <h3><a href="{{ movie.link }}" class="movie-title">{{ movie.title }}</a></h3>
+                <img src="{{ movie.poster }}" title="{{ movie.description }}" class="movie-poster">
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+    <!-- Pagination links -->
+    {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}
+                <a href="?page=1" class="next-button">First</a>
+                <a href="?page={{ current_page - 1 }}" class="previous-button">Previous</a>
+            {% endif %}
+
+            {% if current_page < total_pages %}
+                <a href="?page={{ current_page + 1 }}" class="next-button">Next</a>
+                <a href="?page={{ total_pages }}" class="last-button">Last</a>
+            {% endif %}
+        </div>
+    {% endif %}
 </body>
+<footer>
+        <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
+</footer>
 </html>

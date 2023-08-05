@@ -10,16 +10,19 @@
 </header>
     <!-- Registration Form -->
     <div class="form-container">
-        <h2 class="user-header">Register</h2>
+        <h2 class="user-header">Delete Account</h2>
         <p class="error_message">{{ error_message }}</p>
-        <form action="/register" method="POST">
-            <label for="username"></label>
-            <input type="text" name="username" id="username" placeholder="Username">
-
+        <form action="{{ url_for ('delete_user', user_id=user_id) }}" method="POST">
+            {% if current_user %}
+            <p>Enter user password to continue:</p>
+            {% else %}
+            <p>Enter secret key to continue:</p>
+            {% endif %}
             <label for="password"></label>
             <input type="password" name="password" id="password" placeholder="Password">
 
-            <input type="submit" value="Register" class="sign-up-button">
+
+            <input type="submit" value="Delete Account" class="delete-button">
         </form>
     <a href="{{ url_for('list_users') }}" class="back-to-users-button">View users</a>
     <a href="{{ url_for('home') }}" class="home-page-button">Go Home</a>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Users - MovieWeb App</title>
+</head>
+<body>
+<header>
+    <h1 class="top-title">Movie Web APP</h1>
+</header>
+<div class="form-container">
+    <a href="{{ url_for('logout') }}" class="logout-button">Log Out</a>
+    {% if user_info.photo %}
+    <img src="{{ url_for('static', filename='upload_folder/' + user_info.photo) }}" alt="User Photo" class="user-photo">
+    {% endif %}
+    <h1 class="user-header">Edit User Profile</h1>
+    <form method="POST" action="{{ url_for ('user_profile', username=username) }}"
+          enctype="multipart/form-data">
+        <label for="username"></label>
+        <input type="text" id="username" name="username" value="{{ user_info['username'] }}" placeholder="First Name"
+               required><br><br>
+
+        <label for="surname"></label>
+        <input type="text" id="surname" name="surname" value="{{ user_info['surname'] }}" placeholder="Last Name"
+               required><br><br>
+
+        <label for="email"></label>
+        <input type="email" id="email" name="email" value="{{ user_info['email'] }}" placeholder="Email"
+               required><br><br>
+
+        <label for="password"></label>
+        <input type="password" id="password" name="password" placeholder="Password" minlength="6" ><br><br>
+
+        <label for="photo">User Photo:</label>
+        <input type="file" id="photo" name="photo"><br><br>
+
+        <label for="delete_photo">Delete Photo:</label>
+        <input type="checkbox" id="delete_photo" name="delete_photo" value="true">
+        <span>(Check this box to delete the current photo)</span><br><br>
+
+        <input type="submit" value="Update Profile">
+    </form>
+    <!-- Apply the 'form-link' class to the 'Back' link -->
+    <a href="{{ back_url }}" class="back-to-movies-button">Back</a>
+    <br>
+    <!-- Apply the 'form-link' class to the 'Go home' link -->
+    <a href="{{ url_for('home') }}" class="home-page-button">Go home</a>
+</div>
+</body>
+<footer>
+        <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
+</footer>
+</html>

@@ -6,32 +6,26 @@
 </head>
 <body>
 <header>
-    <h1 class="top-title">Movie Web APP</h1>
+    <h1 class="top-title"> {{ current_user }} Movie Web APP</h1>
 </header>
-<div class="upper-buttons">
-    {% if current_user %}
+{% if current_user %}
     {% if user_info.photo %}
         <img src="{{ url_for('static', filename='upload_folder/' + user_info.photo) }}" alt="User Photo" class="user-photo">
-        {% endif %}
+    {% endif %}
     <a href="{{ url_for('logout') }}" class="logout-button">Log Out</a>
     <a href="{{ url_for('user_profile', username=current_user) }}" class="update-profile-button">Update profile</a>
-    {% else %}
-    <a href="{{ url_for('list_users') }}" class="back-to-users-button">Back to Users page</a>
-    {% endif %}
-    <a href="{{ url_for('home') }}" class="home-page-button">Home page</a>
-    <a href="{{ url_for('add_new_movie', user_id=user_id) }}" class="add-movie-button">Add movie</a>
-</div>
-{% if current_user %}
-<h1 class="user-header">User {{ current_user }}: Movies</h1>
+    <!-- Display the user's current photo if it exists -->
 {% else %}
-<h1 class="user-header">User {{ user_id }}: Movies</h1>
+<a href="{{ url_for('list_users') }}" class="back-to-users-button">Back to Users page</a>
 {% endif %}
-<p class="error_message">{{ error_message }}</p>
+<a href="{{ url_for('home') }}" class="home-page-button">Home page</a>
+<a href="{{ url_for('add_new_movie', user_id=user_id) }}" class="add-movie-button">Add movie</a>
 <p class="message">{{ message }}</p>
+<h1 class="user-header">Your Movies</h1>
+<p class="message">{{ empty_message }}</p>
 <ul>
     {% for movie in movies %}
         <li>
-
             <div class="movie-item">
             <h3><a href="{{ movie.link }}" class="movie-title">{{ movie.title }}</a></h3>
             <div class="tooltip">
@@ -55,14 +49,10 @@
         </li>
     {% endfor %}
 </ul>
-<div class="bottom-buttons">
-    <a href="{{ url_for('add_new_movie', user_id=user_id) }}" class="add-movie-button">Add movie</a>
-    <a href="{{ url_for('list_users') }}" class="back-to-users-button">Back to Users page</a>
-    <a href="{{ url_for('home') }}" class="home-page-button">Home page</a>
-    <a href="{{ url_for('delete_user', user_id=user_id) }}" class="logout-button">Delete account</a>
-</div>
+<a href="{{ url_for('add_new_movie', user_id=user_id) }}" class="add-movie-button">Add movie</a>
+<a href="{{ url_for('list_users') }}" class="back-to-users-button">Back to Users page</a>
+<a href="{{ url_for('home') }}" class="home-page-button">Home page</a>
 </body>
-
 <footer>
         <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
 </footer>

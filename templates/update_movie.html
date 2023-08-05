@@ -5,9 +5,18 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+<header>
+    <h1 class="top-title">Movie Web APP</h1>
+</header>
 <!-- Form container with the 'form-container' class -->
 <div class="form-container">
-    <h1>Update Movie - User: {{ user_id }}, Movie ID: {{ movie_id }}</h1>
+    {% if current_user %}
+        {% if user_info.photo %}
+        <img src="{{ url_for('static', filename='upload_folder/' + user_info.photo) }}" alt="User Photo" class="user-photo">
+        {% endif %}
+    <a href="{{ url_for('logout') }}" class="logout-button">Log Out</a>
+    {% endif %}
+    <h1 class="user-header">Update Movie - User: {{ current_user }}, Movie ID: {{ movie_id }}</h1>
     <form action="{{ url_for ('update_movie', user_id=user_id, movie_id=movie_id) }}" method="POST">
         <label for="title">Title:</label>
         <!-- Apply the 'form-input' class to the input field -->
@@ -37,4 +46,7 @@
     <a href="{{ url_for('home') }}" class="home-page-button">Go home</a>
 </div>
 </body>
+<footer>
+        <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
+</footer>
 </html>

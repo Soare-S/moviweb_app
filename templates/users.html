@@ -6,21 +6,31 @@
     <title>Users - MovieWeb App</title>
 </head>
 <body>
+<header>
+    <h1 class="top-title">Movie Web APP</h1>
+</header>
 <!-- Page container with the 'page-container' class -->
 <div class="page-container">
-    <h1>Users</h1>
+    <!-- Apply the 'go-home-button' class to the 'Go home' button -->
+    <a href="{{ url_for('home') }}" class="home-page-button">Go home</a>
+    <h1 class="user-header">Public Users</h1>
     <!-- User list with the 'user-list' class -->
+    <p class="error_message">{{ error_message }}</p>
     <ul class="user-list">
         {% for user in users %}
             <!-- User list item with the 'user-item' class -->
-            <li class="user-item"><a href="/users/{{ user.id }}" class="user-name">{{ user.name }}</a></li>
+            <li
+                    class="user-item"><a href="/users/{{ user.id }}"
+                                         class="user-name">{{ user.name }} ({{ user.number }} movies)</a>
+            </li>
         {% endfor %}
     </ul>
     <br>
     <!-- Apply the 'add-user-button' class to the 'Add new user' button -->
     <a href="{{ url_for('add_new_user') }}" class="add-user-button">Add new user</a>
-    <!-- Apply the 'go-home-button' class to the 'Go home' button -->
-    <a href="{{ url_for('home') }}" class="home-page-button">Go home</a>
 </div>
 </body>
+<footer>
+        <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
+</footer>
 </html>

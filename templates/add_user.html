@@ -6,9 +6,13 @@
     <title>Add User</title>
 </head>
 <body>
+<header>
+    <h1 class="top-title">Movie Web APP</h1>
+</header>
 <!-- Form container with the 'form-container' class -->
 <div class="form-container">
     <h1 class="user-header">Add User</h1>
+    <p class="error_message">{{ error_message }}</p>
     <form action="{{ url_for('add_new_user') }}" method="POST">
         <label for="name"></label>
         <!-- Apply the 'form-input' class to the input field -->
@@ -22,4 +26,7 @@
     <a href="{{ url_for('home') }}" class="home-page-button">Go Home</a>
 </div>
 </body>
+<footer>
+        <p class="footer">Created for our Movie Web App Project | ©2023, by Sorin Slesari</p>
+</footer>
 </html>
