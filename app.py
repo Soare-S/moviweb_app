@@ -10,6 +10,8 @@ data_manager = JSONDataManager('data/movies.json')  # Use the appropriate path t
 
 
 def check_session():
+    """Check if user has active session.
+        Return name if True, otherwise False"""
     try:
         user = session['username']
         return user
@@ -18,6 +20,9 @@ def check_session():
 
 
 def paginating_movies():
+    """Paginate the list of all unique movies for display on the home page.
+    Returns: tuple: A tuple containing the current page number,
+        a list of paginated movies, and the total number of pages."""
     # Get all unique movies
     all_unique_movies = data_manager.get_all_unique_movies()
 
@@ -35,6 +40,7 @@ def paginating_movies():
 
 @app.route('/')
 def home():
+    """Render the home page, displaying paginated movie list or user's movie list if logged in."""
     # Get all unique movies
     page, paginated_movies, total_pages = paginating_movies()
     current_user = check_session()
@@ -50,6 +56,7 @@ def home():
 
 @app.route('/users')
 def list_users():
+    """Render the users page, displaying a list of users."""
     current_user = check_session()
     users = data_manager.list_all_users()
     if current_user:
@@ -63,6 +70,7 @@ def list_users():
 
 @app.route('/users/<user_id>', methods=['GET'])
 def list_user_movie(user_id):
+    """Render the user's movie list page for the given user ID."""
     movies = data_manager.get_user_movies(user_id)
     current_user = check_session()
     if current_user:
@@ -74,6 +82,7 @@ def list_user_movie(user_id):
 
 @app.route("/add_user", methods=["GET", "POST"])
 def add_new_user():
+    """Handle adding a new user and render the add user page."""
     if request.method == "POST":
         name = request.form.get("name")
         # Check if the username field is empty
@@ -91,6 +100,7 @@ def add_new_user():
 
 @app.route("/users/<user_id>/add_movie", methods=["GET", "POST"])
 def add_new_movie(user_id):
+    """Handle adding a new movie for the given user ID and render the add movie page."""
     current_user = check_session()
     if current_user:
         user_info = data_manager.get_user_info(current_user)
@@ -116,6 +126,7 @@ def add_new_movie(user_id):
 
 @app.route("/users/<user_id>/update_movie/<movie_id>", methods=["GET", "POST"])
 def update_movie(user_id, movie_id):
+    """Handle updating a movie's details and render the update movie page."""
     movie = data_manager.get_movie(user_id, movie_id)
     if request.method == "POST":
         # Get the updated data from the form
@@ -140,12 +151,14 @@ def update_movie(user_id, movie_id):
 
 @app.route("/users/<user_id>/delete_movie/<movie_id>", methods=["GET"])
 def delete_movie(user_id, movie_id):
+    """Handle deleting a movie from the user's movie list."""
     data_manager.delete_movie(user_id, movie_id)
     return redirect(f"/users/{user_id}")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Handle user registration and render the registration page."""
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -175,6 +188,7 @@ def register():
 
 @app.route("/login", methods=["POST"])
 def login():
+    """Handle user login and render the user account page."""
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
@@ -198,6 +212,7 @@ def login():
 
 @app.route('/delete_user/<user_id>', methods=["GET", "POST"])
 def delete_user(user_id):
+    """Handle user deletion and render the delete user page."""
     current_user = check_session()
     if request.method == "POST":
         password = request.form.get("password")
@@ -226,6 +241,7 @@ def delete_user(user_id):
 
 @app.route('/user_profile/<username>', methods=['GET', 'POST'])
 def user_profile(username):
+    """Handle user profile updates and render the user profile page."""
     current_user = check_session()
     user_info = data_manager.get_user_info(username)
     user_id = data_manager.get_id(username)
@@ -260,22 +276,26 @@ def user_profile(username):
 
 @app.route('/logout', methods=["GET"])
 def logout():
+    """Handle user logout and render the logout page."""
     session.pop('username', None)
     return render_template('logout.html')
 
 
 @app.errorhandler(404)
 def not_found_error(error):
+    """Handle 404 errors and render the 404 error page."""
     return render_template('404.html'), 404
 
 
 @app.errorhandler(405)
 def method_not_allowed_error(error):
+    """Handle 405 errors and render the 405 error page."""
     return render_template('405.html'), 405
 
 
 @app.errorhandler(500)
 def internal_server_error(error):
+    """Handle 500 errors and render the 500 error page."""
     return render_template('500.html')
 
 

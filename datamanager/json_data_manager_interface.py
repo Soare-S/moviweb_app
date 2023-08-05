@@ -37,19 +37,20 @@ class JSONDataManager(DataManagerInterface):
         self.filename = filename
 
     def get_all_users(self):
-        # Return all the users information from the JSON file
+        """Return all the users information from the JSON file"""
         with open(self.filename) as file:
             data = json.load(file)
             users = data["users"]
         return users
 
     def get_user_movies(self, user_id):
-        # Return all the movies for a given user
+        """Return all the movies for a given user"""
         users = self.get_all_users()
         movies = users[str(user_id)]["movies"]
         return movies
 
     def list_all_users(self):
+        """List all users with some details."""
         users_data = self.get_all_users()
         users_list = []
         for user_id, user_data in users_data.items():
@@ -68,12 +69,18 @@ class JSONDataManager(DataManagerInterface):
         return users_list
 
     def get_movie(self, user_id, movie_id):
+        """Get information about a specific movie for a user."""
         data = self.get_user_movies(user_id)
         for movie in data:
             if movie["id"] == movie_id:
                 return movie
 
     def delete_movie(self, user_id, movie_id):
+        """Delete a movie from a user's list of movies.
+            Args:
+                user_id (str): ID of the user.
+                movie_id (str): ID of the movie to be deleted.
+            """
         movies_info = self.get_user_movies(user_id)
         data = self.get_all_users()
         for index, movie in enumerate(movies_info):
@@ -87,6 +94,9 @@ class JSONDataManager(DataManagerInterface):
         write_data_to_json_file("movies.json", updated_info)
 
     def user_exist(self, name):
+        """Check if a user with the given name exists.
+            Returns:
+                bool: True if the user exists, False otherwise."""
         data = self.get_all_users()
         for user_data in data.values():
             if user_data["name"] == name:
@@ -94,6 +104,9 @@ class JSONDataManager(DataManagerInterface):
         return False
 
     def movie_exist(self, title, user_id):
+        """Check if a movie with the given title exists for the user.
+               Returns:
+                   bool: True if the movie exists, False otherwise."""
         data = self.get_user_movies(user_id)
         movie_info = get_movie_data(title)
         if len(movie_info) < 3:
@@ -105,6 +118,7 @@ class JSONDataManager(DataManagerInterface):
         return False
 
     def add_user(self, name):
+        """Add a new user with the given name."""
         data = self.get_all_users()
         user_id = str(uuid.uuid4())  # Generate a unique user ID
         data[f"{user_id}"] = {
@@ -117,6 +131,7 @@ class JSONDataManager(DataManagerInterface):
         write_data_to_json_file("movies.json", updated_info)
 
     def add_movie(self, user_id, title):
+        """Add a movie to a user's list of movies."""
         data = self.get_all_users()
         movie_info = get_movie_data(title)
         if "Error" in movie_info:
@@ -152,6 +167,7 @@ class JSONDataManager(DataManagerInterface):
             write_data_to_json_file("movies.json", updated_info)
 
     def update_movie(self, user_id, movie_id, title, director, year, rating):
+        """Update movie information for a user."""
         data = self.get_all_users()
         movies = data[str(user_id)]["movies"]
         for index, movie in enumerate(movies):
@@ -167,6 +183,9 @@ class JSONDataManager(DataManagerInterface):
         write_data_to_json_file("movies.json", updated_info)
 
     def get_all_unique_movies(self):
+        """Get a list of all unique movies across all users.
+                Returns:
+                    list: List of unique movie information."""
         all_movies = set()
         users = self.get_all_users()
         for user in users.values():
@@ -176,6 +195,12 @@ class JSONDataManager(DataManagerInterface):
         return unique_movies
 
     def get_movies_paginated(self, page_num, items_per_page=10):
+        """Get a paginated list of movies.
+           Args:
+               page_num (int): Page number.
+               items_per_page (int, optional): Number of items per page. Defaults to 10.
+           Returns:
+               list: List of movies for the specified page."""
         # Return a list of movies with pagination
         all_movies = self.get_all_unique_movies()
         total_movies = len(all_movies)
@@ -184,6 +209,9 @@ class JSONDataManager(DataManagerInterface):
         return all_movies[start_idx:end_idx]
 
     def register_user(self, username, password):
+        """Register a new user with the given username and password.
+            Returns:
+                str: User ID of the newly registered user."""
         data = self.get_all_users()
         user_id = str(uuid.uuid4())  # Generate a unique user ID
         hashed_password = self.hash_password(password)
@@ -199,6 +227,9 @@ class JSONDataManager(DataManagerInterface):
         return user_id
 
     def check_user(self, name, password):
+        """Check if a user with the given name and password exists.
+            Returns:
+                bool: True if the user exists and the password matches, False otherwise."""
         data = self.get_all_users()
         for user_data in data.values():
             if user_data["name"] == name and self.check_password(password, user_data["password"]):
@@ -206,6 +237,9 @@ class JSONDataManager(DataManagerInterface):
         return False
 
     def get_id(self, name):
+        """Get the user ID by username.
+            Returns:
+                str: User ID if found, otherwise False."""
         data = self.get_all_users()
         for user_id, user_data in data.items():
             if user_data["name"] == name:
@@ -213,13 +247,18 @@ class JSONDataManager(DataManagerInterface):
         return False
 
     def hash_password(self, password):
+        """Hash a password using bcrypt."""
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         return hashed_password.decode('utf-8')
 
     def check_password(self, submitted_password, stored_hashed_password):
+        """Check if a submitted password matches the stored hashed password."""
         return bcrypt.checkpw(submitted_password.encode('utf-8'), stored_hashed_password.encode('utf-8'))
 
     def delete_user(self, user_id):
+        """Delete a user and their associated data.
+            Args:
+                user_id (str): ID of the user to be deleted."""
         data = self.get_all_users()
         del data[user_id]
         updated_info = {
@@ -228,6 +267,15 @@ class JSONDataManager(DataManagerInterface):
         write_data_to_json_file("movies.json", updated_info)
 
     def update_profile(self, username, photo, upd_name='', upd_surname='', upd_email='', upd_password=''):
+        """Update user profile information.
+                Args:
+                    username (str): The username of the user.
+                    photo (str): URL of the user's profile photo.
+                    upd_name (str, optional): Updated name. Defaults to ''.
+                    upd_surname (str, optional): Updated surname. Defaults to ''.
+                    upd_email (str, optional): Updated email. Defaults to ''.
+                    upd_password (str, optional): Updated password. Defaults to ''.
+                """
         data = self.get_all_users()
         user_id = self.get_id(username)
 
@@ -253,6 +301,12 @@ class JSONDataManager(DataManagerInterface):
         write_data_to_json_file("movies.json", updated_info)
 
     def get_user_info(self, username):
+        """Get user information by username.
+            Args:
+                username (str): The username of the user.
+            Returns:
+                dict: User information.
+            """
         user_id = self.get_id(username)
         data = self.get_all_users()
         user_info = data[user_id]
